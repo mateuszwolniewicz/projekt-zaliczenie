@@ -1,11 +1,7 @@
 ---
-title: "Home"
-site: workflowr::wflow_site
-output:
-  workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
+title: "O mnie"
 ---
+# Witaj na mojej stronie!
+Nazywam się Mateusz Wolniewicz, studiuję informatykę i inżynierię danych, na Uniwersytecie Przyrodniczym w Poznaniu. 
+Strona została wykonana przy użyciu pakietu **workflowr**.
 
-Welcome to my research website.

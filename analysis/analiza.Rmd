@@ -1,0 +1,16 @@
+library(dplyr)
+library(ggplot2)
+
+# Przykładowa analiza na wbudowanych danych 'mtcars'
+dane <- mtcars
+
+# Przekształcenia dplyr
+podsumowanie <- dane %>%
+  filter(mpg > 20) %>%
+  group_by(cyl) %>%
+  summarise(srednia = mean(hp))
+
+# Wykres ggplot2
+ggplot(dane, aes(x=factor(cyl), y=mpg)) +
+  geom_boxplot() +
+  labs(title="Spalanie a liczba cylindrów", x="Cylindry", y="MPG")

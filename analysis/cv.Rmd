@@ -1,0 +1,15 @@
+---
+title: "cv"
+author: "mateuszwolniewicz"
+date: "2026-01-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+
+```
+
