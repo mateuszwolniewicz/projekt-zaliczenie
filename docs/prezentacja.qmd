@@ -1,0 +1,116 @@
+---
+title: "Moje pasje i zainteresowania"
+author: "Mateusz Wolniewicz"
+format: revealjs
+---
+
+## [O mnie]{style="display: block; text-align: center;"}
+
+Mam na imię Mateusz. Studiuję inżynierię danych na Uniwersytecie Przyrodniczym w Poznaniu. Jak każdy mam parę swoich sposobów na spędzenia czasu, który mi sprawia radość.
+
+## [Książki]{style="display: block; text-align: center;"}
+
+::: {.columns}
+
+::: {.column width="60%"}
+Odkąd nauczyłem się czytać, uwielbiam wchodzić w światy książek, czytanie od zawsze sprawiało mi frajdę. Głównie czytam książki fantastyczne lub rozwojowe. Uważam, że czytanie to świetny sposób na rozwój samego siebie. Ostatnio najlepsza książka, jaką przeczytałem, to „Upadek” Alberta Camusa.
+:::
+
+::: {.column width="40%"}
+![](książki.jpg)
+:::
+
+:::
+
+## [Las i natura]{style="display: block; text-align: center;"}
+
+::: {.columns}
+
+::: {.column width="60%"}
+Mój dom rodzinny znajduje się w środku ogromnego lasu. Może przez to zawsze czułem i miałem bliskość natury. Uwielbiam wybierać się na spacery i po prostu obserwować przyrodę, czy chociażby podchodzić dziką zwierzynę oraz ją obserwować. Las to zawsze będzie dla mnie miejsce komfortu, oczywiście w dobrych warunkach pogodowych.
+:::
+
+::: {.column width="40%"}
+![](las.jpg)
+:::
+
+:::
+## [Powierzchnia lasów na kontynentach ]{style="display: block; text-align: center;"}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+library(ggplot2)
+
+lasy_dane <- data.frame(
+  Kontynent = c("Azja", "Ameryka Pd.", "Ameryka Pn.", 
+                "Afryka", "Europa", "Oceania"),
+  Powierzchnia = c(1300, 840, 750, 640, 382, 185)
+)
+
+ggplot(lasy_dane, aes(x=reorder(Kontynent, -Powierzchnia), y=Powierzchnia)) +
+  geom_bar(stat="identity", fill="#1B5E20") +
+  labs(
+    title = "Powierzchnie lasów w mln ha",
+    subtitle = "Dane uwzględniają podział Rosji na część azjatycką i europejską",
+    x = "",
+    y = "mln ha"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, color = "darkgrey"),
+    axis.text.x = element_text(angle = 15, vjust = 1, hjust = 1)
+  )
+```
+## [Krowy]{style="display: block; text-align: center;"}
+
+::: {.columns}
+
+::: {.column width="60%"}
+Jako że w przyszłości chciałbym posiadać parę różnych zwierząt, to między innymi chciałbym mieć krowy. A mianowicie krowę rasy mini Highland. Czyli miniaturka krowy szkockiej. Rasa ta cechuje się długimi rogami i kudłatą sierścią. Podobno mięso z takiej krowy należy do jednych z lepszych rodzajów wołowiny. Ja oczywiście chciałbym mieć taką krówkę tylko w celach ozdobnych i towarzyskich.
+:::
+
+::: {.column width="40%"}
+![](krowa.jpg)
+:::
+
+:::
+## [Bydło w Polsce]{style="display: block; text-align: center;"}
+
+Skoro mowa o krowach, sprawdziłem jak wygląda ich hodowla w naszym kraju. Dominują krowy mleczne, ale moje "ozdobne" marzenie to zupełnie inna kategoria.
+
+Oto kompletny i gotowy do wklejenia blok kodu (chunk) dla wykresu o krowach. Zastosowałem w nim nową metodę wyśrodkowania samego nagłówka, o którą prosiłeś, oraz najświeższe dane statystyczne.
+
+Wklej to pod tekstem o krowach:
+Markdown
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+library(ggplot2)
+
+bydlo <- data.frame(
+  Typ = c("Mleczne", "Mięsne", "Młode i opasy"),
+  Ilosc = c(1.96, 0.15, 4.08)
+)
+
+ggplot(bydlo, aes(x="", y=Ilosc, fill=Typ)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  scale_fill_manual(values=c("#424242", "#5D4037", "#FFD54F")) +
+  theme_void() +
+  labs(
+    title="Struktura hodowli bydła w Polsce (ok. 6.2 mln sztuk)",
+    subtitle="Dane GUS"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, color = "darkgrey"),
+    legend.position = "bottom"
+  )
+```
