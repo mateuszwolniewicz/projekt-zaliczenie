@@ -2,6 +2,7 @@ name: "projekt-zaliczenie"
 output_dir: ../docs
 navbar:
   title: "projekt-zaliczenie"
+  type: inverse
   left:
   - text: Home
     href: index.html
@@ -15,3 +16,4 @@ output:
     toc_float: yes
     theme: cosmo
     highlight: textmate
+
