@@ -82,11 +82,6 @@ Jako że w przyszłości chciałbym posiadać parę różnych zwierząt, to mię
 
 Skoro mowa o krowach, sprawdziłem jak wygląda ich hodowla w naszym kraju. Dominują krowy mleczne, ale moje "ozdobne" marzenie to zupełnie inna kategoria.
 
-Oto kompletny i gotowy do wklejenia blok kodu (chunk) dla wykresu o krowach. Zastosowałem w nim nową metodę wyśrodkowania samego nagłówka, o którą prosiłeś, oraz najświeższe dane statystyczne.
-
-Wklej to pod tekstem o krowach:
-Markdown
-
 ```{r}
 #| echo: false
 #| message: false
@@ -114,3 +109,4 @@ ggplot(bydlo, aes(x="", y=Ilosc, fill=Typ)) +
     legend.position = "bottom"
   )
 ```
+
