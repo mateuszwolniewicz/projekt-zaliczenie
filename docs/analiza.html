@@ -11,7 +11,7 @@
 
 
 
-<title>analiza.knit</title>
+<title>Analiza danych</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -252,7 +252,7 @@ $(document).ready(function () {
   <a href="analiza.html">Analiza danych</a>
 </li>
 <li>
-  <a href="prezentacja/prezentacja.html">Prezentacja</a>
+  <a href="prezentacja.html">Prezentacja</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -266,25 +266,95 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Analiza danych</h1>
 
 </div>
 
 
-<p>library(dplyr) library(ggplot2)</p>
-<div id="przykładowa-analiza-na-wbudowanych-danych-mtcars"
-class="section level1">
-<h1>Przykładowa analiza na wbudowanych danych ‘mtcars’</h1>
-<p>dane &lt;- mtcars</p>
+<div id="opis-danych" class="section level1">
+<h1>Opis danych</h1>
+<p>Do projektu wybrałem zbiór <code>iris</code>. Są to dane dotyczące
+wymiarów kwiatów irysa.</p>
+<p>Analizujemy 150 kwiatów podzielonych na trzy gatunki: * Iris setosa,
+* Iris versicolor, * Iris virginica.</p>
+<p>Mierzone cechy to długość i szerokość płatków oraz działek
+kielicha.</p>
 </div>
-<div id="przekształcenia-dplyr" class="section level1">
-<h1>Przekształcenia dplyr</h1>
-<p>podsumowanie &lt;- dane %&gt;% filter(mpg &gt; 20) %&gt;%
-group_by(cyl) %&gt;% summarise(srednia = mean(hp))</p>
-</div>
-<div id="wykres-ggplot2" class="section level1">
-<h1>Wykres ggplot2</h1>
-<p>ggplot(dane, aes(x=factor(cyl), y=mpg)) + geom_boxplot() +
-labs(title=“Spalanie a liczba cylindrów”, x=“Cylindry”, y=“MPG”)</p>
+<div id="obliczenia-i-wykresy" class="section level1">
+<h1>Obliczenia i wykresy</h1>
+<p>Poniżej znajduje się kod, który przygotowuje dane (użyłem
+<code>dplyr</code>) i generuje trzy wykresy (<code>ggplot2</code>).</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Dołączanie pakietu: &#39;dplyr&#39;</code></pre>
+<pre><code>## Następujące obiekty zostały zakryte z &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## Następujące obiekty zostały zakryte z &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(ggplot2)
+
+# 1. Przerabianie danych
+moje_irysy &lt;- iris %&gt;%
+  filter(Petal.Length &gt; 1.4) %&gt;%
+  mutate(Stosunek_wymiarow = Petal.Length / Petal.Width) %&gt;%
+  group_by(Species) %&gt;%
+  summarise(
+    Srednia_Dl = mean(Petal.Length),
+    Srednia_Sz = mean(Petal.Width),
+    Liczba_sztuk = n()
+  )
+
+# Wyświetlenie tabeli
+knitr::kable(moje_irysy)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Species</th>
+<th align="right">Srednia_Dl</th>
+<th align="right">Srednia_Sz</th>
+<th align="right">Liczba_sztuk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">1.588461</td>
+<td align="right">0.2730769</td>
+<td align="right">26</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">4.260000</td>
+<td align="right">1.3260000</td>
+<td align="right">50</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">5.552000</td>
+<td align="right">2.0260000</td>
+<td align="right">50</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># 2. Wykres słupkowy - średnia długość płatka u irysów
+ggplot(moje_irysy, aes(x = Species, y = Srednia_Dl, fill = Species)) +
+  geom_col() +
+  labs(title = &quot;Średnia długość płatka irysa&quot;, x = &quot;Gatunek&quot;, y = &quot;Długość [cm]&quot;)</code></pre>
+<p><img src="analiza_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
+<pre class="r"><code># 3. Wykres punktowy - wymiary działek kielicha
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;, se = FALSE) +
+  labs(title = &quot;Wymiary działek kielicha irysów&quot;, x = &quot;Długość&quot;, y = &quot;Szerokość&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="analiza_files/figure-html/unnamed-chunk-1-2.png" alt="" width="672" /></p>
+<pre class="r"><code># 4. Wykres pudełkowy - rozrzut długości płatków
+ggplot(iris, aes(x = Species, y = Petal.Length, fill = Species)) +
+  geom_boxplot() +
+  labs(title = &quot;Rozrzut wymiarów płatków irysów&quot;, x = &quot;Gatunek&quot;, y = &quot;Długość płatka&quot;)</code></pre>
+<p><img src="analiza_files/figure-html/unnamed-chunk-1-3.png" alt="" width="672" /></p>
 </div>
 
 
