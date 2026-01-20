@@ -1,0 +1,19 @@
+name: "projekt-zaliczenie"
+output_dir: "../docs"
+navbar:
+  title: "Projekt Zaliczeniowy"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "CV"
+      href: cv.html
+    - text: "Analiza danych"
+      href: analiza.html
+    - text: "Prezentacja"
+      href: prezentacja.html
+output:
+  workflowr::wflow_html:
+    theme: cosmo
+    bootstrap_version: 3
+    navbar_type: inverse
+    highlight: textmate
